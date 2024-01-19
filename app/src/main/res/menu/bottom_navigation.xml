@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:layout_width="wrap_content"
+        android:id="@+id/bottom_home"
+        android:icon="@drawable/house_chimney"
+        android:layout_height="wrap_content"
+        android:title="Home" />
+    <item
+        android:layout_width="wrap_content"
+        android:id="@+id/bottom_explore"
+        android:icon="@drawable/drafting_compass"
+        android:layout_height="wrap_content"
+        android:title="Explore" />
+    <item
+        android:layout_width="wrap_content"
+        android:icon="@drawable/bookmark"
+        android:layout_height="wrap_content"
+        android:id="@+id/bottom_bookmark"
+        android:title="Bookmark" />
+    <item
+        android:icon="@drawable/user"
+        android:id="@+id/bottom_user"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title="Profile" />
+
+</menu>
