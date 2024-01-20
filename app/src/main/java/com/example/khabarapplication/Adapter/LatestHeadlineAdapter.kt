@@ -1,4 +1,4 @@
-package com.example.khabarapplication.UI.Adapter
+package com.example.khabarapplication.Adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
