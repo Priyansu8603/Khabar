@@ -2,59 +2,69 @@ package com.example.khabarapplication.UI.Fragment
 
 import android.os.Bundle
 import android.util.Log
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
+import androidx.core.widget.addTextChangedListener
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.navigation.NavController
-import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.khabarapplication.Adapter.LatestHeadlineAdapter
 import com.example.khabarapplication.R
 import com.example.khabarapplication.UI.Activity.HomeScreenActivity
+import com.example.khabarapplication.Utils.Constants.Companion.SEARCH_NEWS_TIME_DELAY
 import com.example.khabarapplication.Utils.Resource
 import com.example.khabarapplication.ViewModels.NewsViewModel
-import com.example.khabarapplication.databinding.FragmentHomeBinding
+import com.example.khabarapplication.databinding.FragmentSearchBinding
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 
-class HomeFragment : Fragment(R.layout.fragment_home) {
+class SearchFragment : Fragment(R.layout.fragment_search) {
 
-
-    private lateinit var navController: NavController
+    private lateinit var newsAdapter:LatestHeadlineAdapter
+    private lateinit var binding: FragmentSearchBinding
     private lateinit var newsViewModel: NewsViewModel
-    private lateinit var newsAdapter: LatestHeadlineAdapter
-    private lateinit var binding: FragmentHomeBinding
-
-    val TAG  = "Breaking News Fragment"
+    val TAG = "Search News Fragment"
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
+        inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentHomeBinding.inflate(inflater, container, false)
-        newsViewModel = (activity as HomeScreenActivity).newsViewModel
+        // Inflate the layout for this fragment
+        binding = FragmentSearchBinding.inflate(inflater,container,false)
 
         setUpRecyclerView()
 
         newsAdapter.setOnItemClickListener {
-            val bundle = Bundle().apply{
+
+            val bundle = Bundle().apply {
                 putSerializable("article",it)
-
             }
-            findNavController().navigate(
-                R.id.action_homeFragment_to_articleFragment,bundle
-            )
+            findNavController().navigate(R.id.action_searchFragment_to_articleFragment,bundle)
+        }
 
+        var job:Job? = null
+        binding.searchEditTxtMain.addTextChangedListener {editable->
+            job?.cancel()
+            job = MainScope().launch {
+                delay(SEARCH_NEWS_TIME_DELAY)
+                editable?.let {
+                    if (editable.toString().isNotEmpty()){
+                        newsViewModel.searchNews(editable.toString())
+                    }
+                }
+            }
         }
 
 
-        newsViewModel.headlines.observe(viewLifecycleOwner, Observer {response->
+        newsViewModel = (activity as HomeScreenActivity).newsViewModel
+
+        newsViewModel.searchNews.observe(viewLifecycleOwner, Observer {response->
             when(response){
                 is Resource.Success -> {
                     hideProgressBar()
@@ -74,21 +84,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             }
         })
 
-        binding.searchEditTxt.setOnClickListener {
-            // Use Navigation Component to navigate to the SearchFragment
-            findNavController().navigate(R.id.action_homeFragment_to_searchFragment)
-        }
-
-
-
-
-
         return binding.root
     }
-
-
-
-
 
     private fun hideProgressBar() {
         binding.paginationProgressBar.visibility = View.INVISIBLE
@@ -99,13 +96,11 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private fun setUpRecyclerView() {
         newsAdapter = LatestHeadlineAdapter()
-        binding.LatestRcView.apply {
+        binding.searchRv.apply {
             adapter = newsAdapter
             layoutManager = LinearLayoutManager(activity)
         }
 
     }
 
-
 }
-
