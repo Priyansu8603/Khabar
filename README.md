@@ -19,3 +19,13 @@ Welcome to Khabar, your go-to mobile application for staying informed and up-to-
 <img alt="mvvm-architecture"  src="https://user-images.githubusercontent.com/15169743/219938204-45d0f055-602f-4f80-9bd4-1d614b8d6497.png">
 </p>
 
+## Screenshots
+<p>
+<img alt="NewsApp" height="450px" src="https://github.com/Priyansu8603/Khabar/blob/master/onboarding1.png" />
+<img alt="NewsApp" height="450px" src="https://github.com/Priyansu8603/Khabar/blob/master/Topics.png" />  
+<img alt="NewsApp" height="450px" src="https://github.com/Priyansu8603/Khabar/blob/master/Homepage.jpg" />
+<img alt="NewsApp" height="450px" src="https://github.com/Priyansu8603/Khabar/blob/master/Explore.png" />
+<img alt="NewsApp" height="450px" src="https://github.com/Priyansu8603/Khabar/blob/master/Bookmark.png" />
+<img alt="NewsApp" height="450px" src="https://github.com/Priyansu8603/Khabar/blob/master/Edit%20profile.png" />
+</p>
+
