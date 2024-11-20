@@ -14,7 +14,7 @@ Welcome to Khabar, your go-to mobile application for staying informed and up-to-
 - StateFlow
 - ViewBinding
 - Pagination
-- 
+
 <p align="center">
 <img alt="mvvm-architecture"  src="https://user-images.githubusercontent.com/15169743/219938204-45d0f055-602f-4f80-9bd4-1d614b8d6497.png">
 </p>
